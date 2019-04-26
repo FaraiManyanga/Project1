@@ -2,32 +2,39 @@
 
 int main()
 {
-    //Encryption of a message with a rotation cipher given the message text and rotation amount
-    //create switch case to chose action as menu
-    //first case does first mission and so on
-    //ascii used for conversions
-    //blah blah blah
-    //ok lets get coding
-    int action
+    int action; //variable for task choice 
+    //variable for text to manipulate
+    
     printf("what is your command \n");
-    printf("1: encrypt as task 1 \n");
-    printf("2: drcrypt as task 2 \n");
+    printf("To encrypt a rotational cypher, enter 1 \n");
+    printf("To decrypt a rotational cypher, enter 2 \n");
+    printf("To encrypt a substitution cypher, enter 3 \n");
+    printf("To decrypt a substitution cypher, enter 4 \n");
     scanf("%d", &action);
-    switch action {
+    switch action { //case statement for task choice
         case 1{
+            
             break;
         }
         case 2{
+            
             break;
         }
+        case 3{
+            
+            break;
+        }
+        case 4{
+            
+            break
+        }
         default {
-            printf("incorrect action input");
+            printf("Incorrect action input. Please try again.");
             break;
         }
     }
     printf("input text to encrypt please \n");
     scanf("%s", &text);
-    encrypt
-    output encryption
+    
     return 0;
 }
