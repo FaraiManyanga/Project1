@@ -2,6 +2,9 @@
 char enc_rot(char text); //function for encoding of rotational text
 //char dec_rot(char text); //function for decoding of rotational text
 int rotation (int key); //function for rotating text
+int key_sub (int key);
+char enc_sub (char text);
+char dec_sub (char text);
 
 int main()
 {
@@ -32,11 +35,11 @@ int main()
             break;
         }
         case 3{
-            
+            enc_sub(text);
             break;
         }
         case 4{
-            
+            enc_sub(text);
             break
         }
         default {
@@ -80,6 +83,54 @@ int rotation (int key, int ascii) {
                 ascii[y] = ascii[y] - 26;
             }
         } 
-    }
     y = y + 1;
+    return ascii;
+    }
+}
+
+char enc_sub(char text) {
+    char keys[25];
+    int b = 0;
+    int asciitext;
+    int location;
+    printf("Please enter key for Substitution");
+    scanf ("%d", keys);
+    key_sub(keys);
+    while text[a] !='\0' {
+        asciitext = text[a];
+        location = asciitext - 64;
+        asciitext = ascii2[location];
+        text[a] = asciitext;
+        printf("%d", text[a]);
+    }
+}
+
+char dec_sub(char text) {
+    char keys [25];
+    int a, b, new_loc;
+    printf("Please enter key to decrypt substitution");
+    scanf("%d", keys);
+    key_sub(keys);
+    while text[a] !='\0' {
+        asciitext = text[a];
+        for (b=0; b < 25; b = b + 1) {
+            if (asciitext == ascii2[b]) {
+                new_loc = b + 64;
+            }
+        }
+        text[a] = new_loc;
+        printf("%d", text[a]);
+        a = a + 1;
+    }
+}
+
+char key_sub(char key) {
+    int ascii2[25];
+    int z = 0;
+    while key[z] != '\0' {
+        ascii2[z] = key[z];
+        ascii2[z] = ascii2[z] - 64;
+        z = z + 1;
+    }
+    return ascii2;
 }
