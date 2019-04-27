@@ -1,16 +1,15 @@
 #include <stdio.h>
+
 char enc_rot(char text); //function for encoding of rotational text
-//char dec_rot(char text); //function for decoding of rotational text
 int rotation (int key); //function for rotating text
-int key_sub (int key);
-char enc_sub (char text);
-char dec_sub (char text);
+int key_sub (int key); //function for creating key during substitution text
+char enc_sub (char text); //function for encoding for substitution
+char dec_sub (char text); //function for decoding for substitution
 
 int main()
 {
     int action; //variable for task choice 
     char text[1000];//input text to manipulate
-    char textout[1000]; //text to output
     int key; //key for rotational encryption
     printf("what is your command \n");
     printf("To encrypt a rotational cypher, enter 1 \n");
@@ -18,28 +17,28 @@ int main()
     printf("To encrypt a substitution cypher, enter 3 \n");
     printf("To decrypt a substitution cypher, enter 4 \n");
     scanf("%d", &action);
-    printf("Please enter text to modify")
-    scanf("%d", &text)
+    printf("Please enter text to modify");
+    scanf("%c", &text);
     
     switch action { //case statement for task choice
-        case 1{
+        case 1{ //base code for encryption of rotational
             printf("Please enter key for encryption");
             scanf("%d", %key);
             enc_rot(text, key);
             break;
         }
-        case 2{
-            printf("Please enter key for decryption");
+        case 2{ //base code for decryption of rotational
+            printf("Please enter key for decryption"); 
             scanf("-%d", &key); //minus sign makes key negative causing decryption
             enc_rot(text, key);
             break;
         }
-        case 3{
+        case 3{ //base code for encryption of substitution
             enc_sub(text);
             break;
         }
-        case 4{
-            enc_sub(text);
+        case 4{ //base code for decryption of substitution
+            dec_sub(text);
             break
         }
         default {
@@ -49,88 +48,74 @@ int main()
     }
 }
 
-char enc_rot(char text, int key) {
-    int x = 0;
-    int ascii[1000];
+char enc_rot(char text, int key) { //main code to encrypt rotational
+    int x = 0; //counter
+    int ascii; //store for acii value of letter
     while (text[x]!='\0') {
-        ascii[x] = text [x];
+        ascii = text [x];
         rotation(key, ascii);
-        text[x] = ascii[x];
-        printf("%d", text[x]);
+        text[x] = ascii;
+        printf("%c", text[x]);
         x = x + 1;
     }
 }
 
-/*char dec_rot(char text) {
-    int z; 
-    int key;
-    printf("please enter decryption key");
-    scanf("%d", &key);
-    key = -key;
-    
-} */
-
-int rotation (int key, int ascii) {
-    int y = 0;
-    while (ascii[y]!='\0') {
-        if (ascii[y] <= 122)&&(ascii >=97) {
-            ascii[y] = ascii [y] + 32;
-        } else if (ascii[y] <= 90)&&(ascii[y] >=65) { //rotation of uppercase letters
-            ascii[y] = ascii[y] + key;
-            if (ascii[y] < 65) { //correction for going negative of range
-                ascii[y] = ascii[y] + 26;
-            } else if (ascii[y] > 90) { //correction of going positive of range
-                ascii[y] = ascii[y] - 26;
-            }
-        } 
-    y = y + 1;
+int rotation (int key, int ascii) { //function for rotation of key
+    if (ascii <= 122)&&(ascii >=97) { //correction from lower case
+        ascii = ascii + 32;
+    } else if (ascii <= 90)&&(ascii >=65) { //rotation of uppercase letters
+        ascii = ascii + key;
+        if (ascii < 65) { //correction for going negative of range
+            ascii = ascii + 26;
+        } else if (ascii> 90) { //correction of going positive of range
+            ascii = ascii - 26;
+        }
+    } 
     return ascii;
-    }
 }
 
-char enc_sub(char text) {
-    char keys[25];
-    int b = 0;
-    int asciitext;
-    int location;
+char enc_sub(char text) { //function to encode for substitution
+    char keys[25]; //array to store keys 
+    int b = 0; //counter
+    int asciitext; //store of ascii values
+    int location; //store of location of decrypted letter
     printf("Please enter key for Substitution");
     scanf ("%d", keys);
     key_sub(keys);
     while text[a] !='\0' {
-        asciitext = text[a];
-        location = asciitext - 64;
-        asciitext = ascii2[location];
-        text[a] = asciitext;
+        asciitext = text[a]; //letter to ascii
+        location = asciitext - 64; //ascii to location in array
+        asciitext = ascii2[location]; //decryption
+        text[a] = asciitext; //ascii to letter 
         printf("%d", text[a]);
     }
 }
 
-char dec_sub(char text) {
-    char keys [25];
-    int a, b, new_loc;
+char dec_sub(char text) { //function to decrypt substitution
+    char keys [25]; 
+    int a, b, new_ascii; //counters a and b, and variable for found ascii to return
     printf("Please enter key to decrypt substitution");
     scanf("%d", keys);
     key_sub(keys);
     while text[a] !='\0' {
-        asciitext = text[a];
-        for (b=0; b < 25; b = b + 1) {
+        asciitext = text[a]; 
+        for (b=0; b < 25; b = b + 1) { //linear search
             if (asciitext == ascii2[b]) {
-                new_loc = b + 64;
+                new_ascii = b + 64; //decryption
             }
         }
-        text[a] = new_loc;
+        text[a] = new_ascii;
         printf("%d", text[a]);
         a = a + 1;
     }
 }
 
-char key_sub(char key) {
-    int ascii2[25];
-    int z = 0;
-    while key[z] != '\0' {
+char key_sub(char key) { //function to decode key 
+    int ascii2[25]; //store of key to allow decoding
+    int z = 0; //counter
+    for (z=0; z < 25; z = z + 1) { 
         ascii2[z] = key[z];
         ascii2[z] = ascii2[z] - 64;
-        z = z + 1;
     }
     return ascii2;
 }
