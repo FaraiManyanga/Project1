@@ -34,7 +34,8 @@ int main()
 
         case 2: //base code for decryption of rotational
             printf("Please enter key for decryption"); 
-            scanf("-%d", &key); //minus sign makes key negative causing decryption
+            scanf("-%d", &key);
+            key = key - (2*key); //makes key negative to allow decryption
             enc_rot(key);
             break;
         
