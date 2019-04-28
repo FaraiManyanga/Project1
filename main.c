@@ -1,15 +1,19 @@
 #include <stdio.h>
 
-char enc_rot(char text[1000], int key); //function for encoding of rotational text
+//function declaration
+void enc_rot(int key); //function for encoding of rotational text
 int rotation (int key, int ascii); //function for rotating text
 int key_sub (char key[25]); //function for creating key during substitution text
 char enc_sub (char text[1000]); //function for encoding for substitution
 char dec_sub (char text[1000]); //function for decoding for substitution
 
+//global variables
+char text[1000];//input text to manipulate
+
+
 int main()
 {
     int action; //variable for task choice 
-    char text[1000];//input text to manipulate
     int key; //key for rotational encryption
     
     printf("Welcome. Please enter text to modify \n");
@@ -25,13 +29,13 @@ int main()
         case 1: //base code for encryption of rotational
             printf("Please enter key for encryption \n");
             scanf("%d", &key);
-            enc_rot(text, key);
+            enc_rot(key);
             break;
 
         case 2: //base code for decryption of rotational
             printf("Please enter key for decryption"); 
             scanf("-%d", &key); //minus sign makes key negative causing decryption
-            enc_rot(text, key);
+            enc_rot(key);
             break;
         
         case 3: //base code for encryption of substitution
@@ -49,22 +53,23 @@ int main()
     }
 }
 
-char enc_rot(char text[1000], int key) { //main code to encrypt rotational
+void enc_rot(int key) { //main code to encrypt rotational
     int x = 0; //counter
     int ascii; //store for acii value of letter
     while (text[x]!='\0') {
         ascii = text[x];
+        //printf("%d", ascii);
         rotation(key, ascii);
-        text[x] = ascii;
-        printf("%c", text[x]);
         x = x + 1;
     }
 }
 
 int rotation (int key, int ascii) { //function for rotation of key
-    if (ascii <= 122 && ascii >=97) { //correction from lower case
-        ascii = ascii + 32;
-    } else if (ascii <= 90 && ascii >=65) { //rotation of uppercase letters
+    char out; 
+    if ((ascii <= 122) && (ascii >=97)) { //correction from lower case
+        ascii = ascii - 32;
+    } 
+    if (ascii <= 90 && ascii >=65) { //rotation of uppercase letters
         ascii = ascii + key;
         if (ascii < 65) { //correction for going negative of range
             ascii = ascii + 26;
@@ -72,7 +77,10 @@ int rotation (int key, int ascii) { //function for rotation of key
             ascii = ascii - 26;
         }
     } 
+    out = ascii;
+    printf("%c", out);
     return ascii;
+
 }
 
 char enc_sub(char text[1000]) { //function to encode for substitution
