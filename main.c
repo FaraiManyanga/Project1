@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-char enc_rot(char text); //function for encoding of rotational text
+char enc_rot(char text[1000]); //function for encoding of rotational text
 int rotation (int key); //function for rotating text
 int key_sub (int key); //function for creating key during substitution text
 char enc_sub (char text); //function for encoding for substitution
