@@ -11,15 +11,16 @@ int main()
     int action; //variable for task choice 
     char text[1000];//input text to manipulate
     int key; //key for rotational encryption
+    
+    printf("Welcome. Please enter text to modify \n");
+    fgets(text, 500, stdin);
     printf("what is your command \n");
     printf("To encrypt a rotational cypher, enter 1 \n");
     printf("To decrypt a rotational cypher, enter 2 \n");
     printf("To encrypt a substitution cypher, enter 3 \n");
     printf("To decrypt a substitution cypher, enter 4 \n");
     scanf("%d", &action);
-    printf("Please enter text to modify \n");
-    scanf("%d", &text);
-    
+        
     switch (action) { //case statement for task choice
         case 1: //base code for encryption of rotational
             printf("Please enter key for encryption \n");
