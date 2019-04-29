@@ -4,7 +4,7 @@
 void enc_rot(int key); //function for encoding of rotational text
 int rotation (int key, int ascii); //function for rotating text
 int key_sub (); //function for creating key during substitution text
-char enc_sub (); //function for encoding for substitution
+void enc_sub (); //function for encoding for substitution
 void dec_sub (); //function for decoding for substitution
 
 //global variables
@@ -16,8 +16,8 @@ char output[400];
 
 int main()
 {
-    int action; //variable for task choice 
-    int key; //key for rotational encryption
+    int action ; //variable for task choice 
+    int key ; //key for rotational encryption
     
     printf("Welcome. Please enter text to modify \n");
     fgets(text, 500, stdin);
@@ -86,7 +86,7 @@ int rotation (int key, int ascii) { //function for rotation of key
 
 }
 
-char enc_sub() { //function to encode for substitution
+void enc_sub() { //function to encode for substitution
     int b = 0; //counter    
     ////printf("Please enter key for Substitution \n");
     ////scanf("%c", keys);
@@ -108,10 +108,10 @@ void dec_sub() { //function to decrypt substitution
     int c;
     ////printf("Please enter key for Substitution \n");
     ////scanf("%c", keys);
-    char subkey[25] = {"QWERTYUIOPASDFGHJKLZXCVBNM"};
+    char subkey[25] = {"QWERTYUIOPASDFGHJKLZXCVBNM"}; //input of key
     
-    for (b=0; text[b]!='\0' && text[b+1]!='\0'; b=b+1) {
-        for (c=0; c<=25; c=c+1)
+    for (b=0; text[b]!='\0'; b=b+1) { //changes each letter
+        for (c=0; c<=25; c=c+1) //
             if (text[b]==subkey[c]) {
                 if ((text[b] <= 122) && (text[b] >=97)) { //correction from lower case
                     text[b] = text[b] - 32;
@@ -124,5 +124,4 @@ void dec_sub() { //function to decrypt substitution
                 }
             }
         }    
-    }
 }
